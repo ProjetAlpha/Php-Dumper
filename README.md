@@ -4,4 +4,8 @@ Autoload.php is used to run all classes in this directory if you dont have compo
 
 Otherwise, you can delete autoload.php.
 
-<img align="center" src="/DemoImg/DumperDemo.png" alt="demo image">
+<p align="center">
+
+  <img src="/DemoImg/DumperDemo.png" alt="demo image">
+
+</p>
