@@ -8,4 +8,5 @@ Otherwise, you can delete autoload.php.
 
   <img src="/DemoImg/DumperDemo.png" alt="demo image">
 
+  <img src="/DemoImg/DumperDemo2.png" alt="demo image">
 </p>
