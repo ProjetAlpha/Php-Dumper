@@ -7,6 +7,9 @@ use \ReflectionClass;
 
 class ObjectHandler extends ObjectType
 {
+    public $class;
+
+
     public function __construct($object)
     {
         $this->initialize($object);
@@ -14,8 +17,10 @@ class ObjectHandler extends ObjectType
 
     public function initialize($object)
     {
-        $name = get_class($object);
-        $this->hasParent($name) ? $this->setObject($name) : $this->class[] = $name;
+        if (is_object($object)) {
+            $name = get_class($object);
+            $this->hasParent($name) ? $this->setObject($name) : $this->class[] = $name;
+        }
     }
 
     public function setObject($name)

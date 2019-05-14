@@ -1,15 +1,15 @@
 <?php
 
-namespace Dumper;
+namespace Test;
 
-require_once(__DIR__.'/autoload.php');
+require_once(dirname(__DIR__).'/autoload.php');
 
 use Dumper\Dumper;
 
 $hello = ['hi', 'hey', ['holo', 'hihi', 'jhg' => ['kku' => 'da', 'ojo' => 'fez', 'ihu' => ['kok' => 'gteg', 'ojij' => 'bgb', 'okijfr' => ['eroigjre' => 'pojer', 'efi' => 'ezf', 'oiezjffij' => ['fefijfe' => 'erih','ihefz'=>'oerg', 'iuhfze' => ['epojge' => 'reger', 'ofiegjre' => 'eorjg', 'reg' => 'greoi', 'zefiuh' => ['egoregi' => 'erogh']]]]]]], 'salut' => 'bonjour', 'kola' => 'coca', 'ha' => ['oieeef' => 'oizefj', 'zepfo' => 'oizejf', 'oijzef' => ['jij' => 'oizehf']]];
 class Strong
 {
-    private $strong = ['hi', 'hey', ['holo', 'hihi']];
+    private $strong = ['hi', ['jojo' => 'koko'], 'hey', ['holo', 'hihi']];
     private $hey = ['hi', 'hey', ['holo', 'hihi' => ['test84', 'test89']]];
 
     public function small()
@@ -44,19 +44,6 @@ class Demo extends Strong implements World
     public function go()
     {
         return $this->go = $this->small();
-        /*(function(){
-
-            yield new static;
-        })($this);
-
-        new class() {
-
-            public function func()
-            {
-                return $this->obj = new stdClass;
-
-            }
-        };*/
     }
 
     public function call()
@@ -77,7 +64,15 @@ class Demo extends Strong implements World
 $inst = new Dumper();
 
 $test = (new Demo)->yolo();
-$dump = $inst->toHtml($test);
+
+$dump = $inst->load($test);
+
+$dump2 = $inst->load(array('test'=>json_decode(json_encode(['allo', 'test' => 123, 'coucou' => 345,
+  'testo' => json_decode(json_encode(['noob', 'iii' => json_decode(json_encode(['ooo', 'ppp'])),
+  'lol' => json_decode(json_encode(['ooo' => 'tes', 'ppp']))
+  ])),
+  'plol' => json_decode(json_encode(['ooo' => 'tes', 'ppp'])), 'lol' => json_decode(json_encode(['ooo' => 'tes', 'ppp']))
+]))));
 
 ?>
 
@@ -88,7 +83,6 @@ $dump = $inst->toHtml($test);
 <div style="width:100%;height:5%">
 </div>
 
-<?php echo($inst->html); ?>
 
 <div style="width:100%;height:5%">
 </div>

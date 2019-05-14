@@ -48,7 +48,6 @@ class ObjectType
 
     public function hasParent($name)
     {
-        $parent = (new ReflectionClass($name))->getParentClass();
-        return count($parent) !== 0;
+        return (new ReflectionClass($name))->getParentClass() !== false;
     }
 }

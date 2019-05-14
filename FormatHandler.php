@@ -15,6 +15,7 @@ class FormatHandler
     const BRACKET_START = '[';
     const BRACKET_END = ']';
     const SLASH = '/';
+    public $object = null;
 
     public function __construct()
     {
@@ -23,8 +24,6 @@ class FormatHandler
         $this->format = new Format();
         $this->objectTypeList = $this->format->get('objectTypeList');
     }
-
-
 
     private function setStyle()
     {
@@ -78,11 +77,10 @@ class FormatHandler
                 if ($type === 'boolean') {
                     $value ? $value = 'true' : $value = 'false';
                 }
-                $format[$type]['length'] = $value;
+                $value !== null ? $format[$type]['length'] = $value : 0;
             }
             $result = $format[$type];
         }
-
         return $result ?? '';
     }
 
@@ -95,7 +93,7 @@ class FormatHandler
             } elseif ($this->object->isProtected($name)) {
                 $format = $this->getProtectedName($name);
                 return $format;
-            } else {
+            } elseif (isset($this->object->property['public'])) {
                 foreach ($this->object->property['public'] as $props) {
                     if (strpos($name, $props) === 0) {
                         $format = $this->getPublicName($name);
@@ -111,8 +109,8 @@ class FormatHandler
     {
         foreach ($this->objectTypeList as $key => $value) {
             $method = 'is'.ucfirst($key);
-            if (method_exists($this->objectHandler, $method)) {
-                if ($this->objectHandler->{$method}($object) !== false) {
+            if (method_exists($this->object, $method)) {
+                if ($this->object->{$method}($object) !== false) {
                     $typeStyle = $this->getObjectStyle($key, $value);
                     return $typeStyle;
                 }
@@ -162,7 +160,9 @@ class FormatHandler
 
     public function getKeyValueStyle($key, $value, $option = null)
     {
-        $keyStyle = $this->getKeyStyle($key);
+        if ($key !== null) {
+            $keyStyle = $this->getKeyStyle($key);
+        }
         if ($option === 'array') {
             $valueStyle = $this->getArrayStyle($value);
         } elseif ($option === 'object') {
@@ -172,16 +172,17 @@ class FormatHandler
         } else {
             $valueStyle = $this->getValueStyle($value);
         }
-
-        return $keyStyle.self::SPACE.$this->getArrowStyle('=>').self::SPACE.$valueStyle;
+        if ($key === null) {
+            return $valueStyle;
+        } else {
+            return $keyStyle.self::SPACE.$this->getArrowStyle('=>').self::SPACE.$valueStyle;
+        }
     }
 
     public function getKeyStyle($key)
     {
         $style = $this->getStyle($this->style->getBasicColor('key'), $this->font, $key, $this->tag);
-        // <span style="color:white">
         return $this->getBracketStyle('[').$style.$this->getBracketStyle(']');
-        //return self::BRACKET_START.$style.self::BRACKET_END;
     }
 
     public function getValueStyle($value)
