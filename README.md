@@ -6,7 +6,7 @@ Otherwise, you can delete autoload.php. <br />
 
 Example : <br />
 
-<code>
+<pre>
   require($yourPathToAutoload.'/autoload.php');
   use Dumper/Dumper;
   
@@ -16,7 +16,7 @@ Example : <br />
   $dumperInstance->load($arr);
   // if you want to clear the dumper you can pass a boolean, by default it will not clear previous variables dumps.
   $dumperInstance->load($arr, true);
-</code>
+</pre>
 
 Demo.php file : <br />
 
