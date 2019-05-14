@@ -1,4 +1,4 @@
-You cant test it with Demo.php <br />
+You can test it with Demo.php <br />
 
 Autoload.php is used to run all classes in this directory if you dont have composer. <br />
 
