@@ -4,6 +4,20 @@ Autoload.php is used to run all classes in this directory if you dont have compo
 
 Otherwise, you can delete autoload.php. <br />
 
+Example : <br />
+
+<code>
+  require($yourPathToAutoload.'/autoload.php');
+  use Dumper/Dumper;
+  
+  $dumperInstance = new Dumper();
+  $arr = ['test' => 'cool'];
+  
+  $dumperInstance->load($arr);
+  // if you want to clear the dumper you can pass a boolean, by default it will not clear previous variables dumps.
+  $dumperInstance->load($arr, true);
+</code>
+
 Demo.php file : <br />
 
 <p align="center">
